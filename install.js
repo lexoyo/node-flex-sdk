@@ -49,3 +49,22 @@ mkdirp(flashApiLibDir, function(err) {
     process.exit(err ? 1 : 0);
   });
 });
+
+// remove the 32bit related stuff in mxmlc and compc
+// @see http://stackoverflow.com/questions/13302427/mxmlc-in-flex-sdk-4-5-doesnt-work-on-mac-os-10-8/13302428#13302428)
+var stringToRemove = 'D32=\'-d32\'';
+var replaceComment = 'echo "1 line removed to support 64bits Java"';
+['mxmlc', 'compc'].forEach(function(scriptName) {
+  var pathToScript = path.join(__dirname, 'lib/flex_sdk/bin/' + scriptName);
+  console.log('replace', scriptName, pathToScript);
+  fs.readFile(pathToScript, 'utf8', function (err,data) {
+    if (err) {
+      return console.log(err);
+    }
+    var result = data.replace(new RegExp(stringToRemove), replaceComment);
+
+    fs.writeFile(pathToScript, result, 'utf8', function (err) {
+       if (err) return console.log(err);
+    });
+  });
+});
