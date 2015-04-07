@@ -64,7 +64,9 @@ var replaceComment = 'echo "1 line removed to support 64bits Java"';
     var result = data.replace(new RegExp(stringToRemove), replaceComment);
 
     fs.writeFile(pathToScript, result, 'utf8', function (err) {
-       if (err) return console.log(err);
+       if (err) {
+        return console.log(err);
+      }
     });
   });
 });
