@@ -29,7 +29,8 @@
   },
   "main": "lib/flex",
   "bin": {
-    "mxmlc": "./bin/mxmlc"
+    "mxmlc": "./bin/mxmlc",
+    "compc": "./bin/compc"
   },
   "scripts": {
     "prepublish": "node prepublish.js; if [ \"$npm_package_config_npm_cmd_ran\" == \"install\" ]; then npm run-script postinstall; fi; npm config delete $npm_package_name:npm_cmd_ran",
